@@ -31,7 +31,8 @@ or 3000 if there's nothing there.
 app.get('/',function(req, res){
 	res.sendFile(__dirname+'/index.html');
 });
-app.use(express.static('public'));
+
+app.use(express.static(__dirname+'/public'));
 
 io.on('connect',function(socket){
 	connections.push(socket);
