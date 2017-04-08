@@ -24,7 +24,7 @@ var io = require('socket.io').listen(server);
 users = [];
 connections =[];
 
-server.listen(process.env.PORT || 443);
+server.listen(8443);
 console.log('Server has started...');
 /*
 In many envirnonments (e.g. Heroku), and as a convention, you can set
