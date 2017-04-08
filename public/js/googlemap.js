@@ -6,11 +6,11 @@
 var map;
 var totalMessage='Hello World!';
 var infoWindow;
-var pos;
+var pos = {lat: 25.105497,lng: 121.597366};
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.397, lng: 150.644},
+            center: {lat: 25.105497, lng: 121.597366},
             zoom: 6
         });
 
