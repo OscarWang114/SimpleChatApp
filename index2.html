@@ -92,7 +92,7 @@
     			margin-top: 30px;
     		}
     		#userFormArea{
-    			margin:100px;
+    			margin-top:120px;
     		}
     		#messageArea{
     			display:none;
@@ -112,7 +112,7 @@
     			overflow-x: hidden !important;
     			overflow-y: scroll !important;
     			word-wrap: break-word !important;
-				max-height: 120px !important; 
+				max-height: 150px !important; 
 			}
 			.modal-body{
 				background-color: rgb(180, 224, 254);
@@ -136,17 +136,18 @@
 	<body>
 		<div class="container">
 			<div id="userFormArea" class="row">
-				<div class="col-xs-12">
+				<div class="col-xs-12" >
 					<form id="userForm">
-							<div class="form-group">
-								<label>Simple Google Map Chat</label>
-								<textarea class="form-control" id="username" placeholder="What's your name?" rows=1></textarea>
-								<input type="submit" class="btn btn-primary pull-right" value="Login"/>
-							</div>
-
+						<div class="form-group">
+							<label>Simple Google Map Chat</label>
+							<textarea class="form-control" id="username" placeholder="What's your name?" rows=1></textarea>
+							<input type="submit" class="btn btn-primary pull-right" value="Login"/>
+						</div>
 					</form>
 				</div>
 			</div>
+		</div>
+		<div class="container">
 			<div id ="messageArea" class="row">
 				<div class="col-xs-8">
 					<div class="well">

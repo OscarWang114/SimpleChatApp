@@ -5,12 +5,14 @@
 
 var map;
 var totalMessage='Hello World!';
+var taipeiPos = {lat: 25.105497,lng: 121.597366};
 var infoWindow;
-var pos = {lat: 25.105497,lng: 121.597366};
+var iwPos = taipeiPos;
+var mapPos = {lat: taipeiPos.lat+1.5, lng: taipeiPos.lng};
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 25.105497, lng: 121.597366},
+            center: mapPos,
             zoom: 6
         });
 
@@ -18,20 +20,23 @@ function initMap() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            pos = {
+            iwPos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-
-            infoWindow.setPosition(pos);
+            mapPos = {
+                lat: position.coords.latitude+1.5,
+                lng: position.coords.longitude
+            };
+            infoWindow.setPosition(iwPos);
             infoWindow.setContent(totalMessage);
-            map.setCenter(pos);
+            map.setCenter(mapPos);
         }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+            handleLocationError(true, infoWindow, iwPos);
         });
     } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, infoWindow, iwPos);
     }
 }
 
@@ -48,7 +53,7 @@ function addMessage(totalMessage){
 
 socket.on('get users', function(data){
     google.maps.event.trigger(map, 'resize');
-    map.setCenter(pos);
+    map.setCenter(mapPos);
 });
 
 socket.on('new message', function(data){
