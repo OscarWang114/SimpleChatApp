@@ -24,7 +24,15 @@
 				var $mapArea = $('#map');
 				var $users = $('#users');
 				var $username = $('#username');
-				var $nameError = $('#nameError')
+				var $nameError = $('#nameError');
+
+				function modalScrollToBottom(){
+					$('.modal').animate({ scrollTop: $(document).height() }, "slow");
+				}
+
+				$('#chatModal').on('shown.bs.modal', function(e){
+					modalScrollToBottom();
+				});
 
 				$userForm.submit(function(e){
 					e.preventDefault();
@@ -61,14 +69,14 @@
 					if(data.msg!=''){
 						$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>')
 						//the oject is passed into the data parameter. Thus by accessing its msg property we'll be able to retreive the message.
-					  	$('.modal').animate({ scrollTop: $(document).height() }, "slow");
+					  	modalScrollToBottom();
 					}
 				});
 
 				socket.on('new message from others', function(data){
 					if(data.msg!=''){
-						$chat.append('<div class="clearfix"></div><div class="receivedMessage well-sm">'+'<strong>'+data.usr+'</strong>: '+data.msg+'</div>');
-						$('.modal').animate({ scrollTop: $(document).height() }, "slow");
+						$chat.append('<div class="clearfix"></div><div class="receivedMessage well-sm pull-left">'+'<strong>'+data.usr+'</strong>: '+data.msg+'</div>');
+						modalScrollToBottom();
 					}
 				});
 				
