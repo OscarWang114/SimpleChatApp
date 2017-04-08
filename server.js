@@ -1,5 +1,5 @@
 var express = require('express')
-,   http = require('http'), fs = require('fs');
+, fs = require('fs'), https = require('https');
 
 var app = express();
 var sslPath = '/etc/letsencrypt/live/simplegooglemapchat.tk/';
@@ -7,7 +7,9 @@ var options = {
 	key: fs.readFileSync(sslPath + 'privkey.pem'),
 	cert: fs.readFileSync(sslPath + 'fullchain.pem')
 };
-var server = http.createServer(options, app);
+
+var server = https.createServer(options, app);
+
 //Original http.creatServer(function(req, res){});
 /*
 express() returns a function. That function takes the req and res connection
@@ -22,7 +24,7 @@ var io = require('socket.io').listen(server);
 users = [];
 connections =[];
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 443);
 console.log('Server has started...');
 /*
 In many envirnonments (e.g. Heroku), and as a convention, you can set
