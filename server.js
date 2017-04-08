@@ -1,8 +1,13 @@
 var express = require('express')
-,   http = require('http');
+,   http = require('http'), fs = require('fs');
 
 var app = express();
-var server = http.createServer(app);
+var sslPath = '/etc/letsencrypt/live/simplegooglemapchat.tk/';
+var options = {
+	key: fs.readFileSync(sslPath + 'privkey.pem'),
+	cert: fs.readFileSync(sslPath + 'fullchain.pem')
+};
+var server = http.createServer(options, app);
 //Original http.creatServer(function(req, res){});
 /*
 express() returns a function. That function takes the req and res connection
