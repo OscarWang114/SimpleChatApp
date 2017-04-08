@@ -43,7 +43,6 @@
 							}
 						});
 						$username.val('');
-						console.log("This: "+$nameError.html());
 					}
 				});
 				
@@ -62,12 +61,14 @@
 					if(data.msg!=''){
 						$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>')
 						//the oject is passed into the data parameter. Thus by accessing its msg property we'll be able to retreive the message.
+					  	$('.modal').animate({ scrollTop: $(document).height() }, "slow");
 					}
 				});
 
 				socket.on('new message from others', function(data){
 					if(data.msg!=''){
 						$chat.append('<div class="clearfix"></div><div class="receivedMessage well-sm">'+'<strong>'+data.usr+'</strong>: '+data.msg+'</div>');
+						$('.modal').animate({ scrollTop: $(document).height() }, "slow");
 					}
 				});
 				
@@ -113,7 +114,7 @@
 			}
 			.modal-body{
 				background-color: rgb(180, 224, 254);
-				overflow-y: scroll;
+				overflow: auto;
 			}
 			.well, .well-sm{
 				word-wrap: break-word;
@@ -161,7 +162,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<h3 class="modal-title">Chat Room</h3>
-									<!--button class="close" data-dismiss="modal">&times;</button-->
+									<button class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div id="chat" class="modal-body">
 									<div class="well-sm sentMessage pull-right" >Hello World!</div>
