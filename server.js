@@ -17,7 +17,7 @@ var io = require('socket.io').listen(server);
 users = [];
 connections =[];
 
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 80);
 console.log('Server has started...');
 /*
 In many envirnonments (e.g. Heroku), and as a convention, you can set
@@ -29,7 +29,7 @@ or 3000 if there's nothing there.
 */
 
 app.get('/',function(req, res){
-	res.sendFile(__dirname+'/index2.html');
+	res.sendFile(__dirname+'/index.html');
 });
 
 app.use(express.static(__dirname+'/public'));
