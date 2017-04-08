@@ -24,17 +24,27 @@
 				var $mapArea = $('#map');
 				var $users = $('#users');
 				var $username = $('#username');
+				var $nameError = $('#nameError')
 
 				$userForm.submit(function(e){
 					e.preventDefault();
-					socket.emit('new user', $username.val(), function(data){
-						if(data){
-							$userFormArea.hide();
-							$messageArea.show();
-							$mapArea.show();
+					if($username.val()==''){
+						if("undefined" === typeof $nameError.html()){
+							var html='<p id="nameError">Please Enter a Proper User Name.</p>';
+							$userForm.append(html);		
+							$nameError = $('#nameError');				
 						}
-					});
-					$username.val('');
+					}else {
+						socket.emit('new user', $username.val(), function(data){
+							if(data){
+								$userFormArea.hide();
+								$messageArea.show();
+								$mapArea.show();
+							}
+						});
+						$username.val('');
+						console.log("This: "+$nameError.html());
+					}
 				});
 				
       			$messageForm.submit(function(e){
@@ -76,6 +86,7 @@
     			height:100%;
     		}
     		body{
+    			font-size:16px;
     			height:100%;
     			margin-top: 30px;
     		}
@@ -84,6 +95,9 @@
     		}
     		#messageArea{
     			display:none;
+    		}
+    		.messageForm, .form-control, .btn{
+    			font-size:16px;
     		}
     		#map{
     			height:60%;
