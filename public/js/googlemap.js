@@ -6,6 +6,7 @@
 var map;
 var totalMessage='Hello World!';
 var infoWindow;
+var pos;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -17,7 +18,7 @@ function initMap() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
@@ -44,6 +45,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function addMessage(totalMessage){
     infoWindow.setContent(totalMessage);
 }
+
+socket.on('get users', function(data){
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(pos);
+});
 
 socket.on('new message', function(data){
     if(data.msg!=''){

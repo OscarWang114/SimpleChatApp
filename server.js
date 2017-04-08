@@ -29,7 +29,7 @@ or 3000 if there's nothing there.
 */
 
 app.get('/',function(req, res){
-	res.sendFile(__dirname+'/index.html');
+	res.sendFile(__dirname+'/index2.html');
 });
 
 app.use(express.static(__dirname+'/public'));
@@ -40,17 +40,31 @@ io.on('connect',function(socket){
 	
 	//Disconnect
 	socket.on('disconnect',function(data){
-	connections.splice(connections.indexOf(socket),1);
-	console.log('Disconnected: %d sockets conneted.',connections.length);
+		users.splice(users.indexOf(socket.username), 1);
+		updateUserNames();
+		connections.splice(connections.indexOf(socket), 1);
+		console.log('Disconnected: %d sockets conneted.',connections.length);
 	});
 
 	//Send Message
 	socket.on('send message',function(data){
 		//responds to the send message event.
-		io.emit('new message', {msg: data});
+		socket.emit('new message', {msg:data.msg});
+		socket.broadcast.emit('new message from others', {usr:socket.username, msg:data.msg});
 		//emits the new message event and sends an anonymous object.
 	});
 
+	//New User
+	socket.on('new user',function(data, callback){
+		callback(true);
+		socket.username = data;
+		users.push(socket.username);
+		updateUserNames();
+	});
+
+	function updateUserNames(){
+		io.emit('get users', users);
+	}
 });
 
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    	<script src="/socket.io/socket.io.js"></script>
+    	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="well">
+						<h3>Online Users</h3>
+						<ul class="list-group" id="users"></ul>
+					</div>
+				</div>
+				<div class="col-xs-8">
+					<!--div class="chat" id="chat"></div-->
+					<button type ="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#chatModal">
+					Chat!
+					</button>		
+					<div class="modal fade" id="chatModal">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h3 class="modal-title">Chat Room</h3>
+									<!--button class="close" data-dismiss="modal">&times;</button-->
+								</div>
+								<div class="modal-body">
+								<p>asdfasdfadf</p>
+								</div>
+								<div class="modal-footer">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
