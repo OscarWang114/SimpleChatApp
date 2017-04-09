@@ -24,7 +24,7 @@ var io = require('socket.io').listen(server);
 users = [];
 connections =[];
 
-server.listen(8443);
+server.listen(8080);
 console.log('Server has started...');
 /*
 In many envirnonments (e.g. Heroku), and as a convention, you can set
@@ -47,8 +47,10 @@ io.on('connect',function(socket){
 	
 	//Disconnect
 	socket.on('disconnect',function(data){
-		users.splice(users.indexOf(socket.username), 1);
-		updateUserNames();
+		if("undefined" !== typeof socket.username){
+			users.splice(users.indexOf(socket.username), 1);
+			updateUserNames();
+		}
 		connections.splice(connections.indexOf(socket), 1);
 		console.log('Disconnected: %d sockets conneted.',connections.length);
 	});

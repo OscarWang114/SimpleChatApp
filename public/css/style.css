@@ -1,0 +1,48 @@
+html{
+    height:100%;
+}
+body{
+    font-size:16px;
+    height:100%;
+    margin-top: 30px;
+}
+#userFormArea{
+    margin-top:120px;
+}
+#messageArea{
+    display:none
+}
+.messageForm, .form-control, .btn{
+    font-size:16px;
+}
+#map{
+    height:60%;
+    display:none;
+}
+#users{
+    font-size: 16px;
+}
+.gm-style-iw {
+    font-size: 18px !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    word-wrap: break-word !important;
+    max-height: 150px !important; 
+}
+.modal-body{
+    background-color: rgb(180, 224, 254);
+    overflow: auto;
+}
+.well, .well-sm{
+    word-wrap: break-word;
+}
+.sentMessage{
+    background-color: rgb(159, 249, 161);
+    max-width: 60%;
+    margin-bottom: 7px;
+}
+.receivedMessage{
+    background-color: rgb(237, 247, 255);
+    max-width: 60%;
+    margin-bottom: 7px; 
+}

@@ -51,11 +51,10 @@ function addMessage(totalMessage){
     infoWindow.setContent(totalMessage);
 }
 
-function updateMyMap(){
+socket.on('get users', function(data){
     google.maps.event.trigger(map, 'resize');
     map.setCenter(mapPos);
-}
-
+});
 
 socket.on('new message', function(data){
     if(data.msg!=''){
