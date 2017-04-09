@@ -74,6 +74,7 @@ $(function(){
 			html += '<li>·'+data[i]+'</li>'
 		}
 		$users.html(html);
+		$('#numberOfUsers').html(data.length);
 	})
 
 });
