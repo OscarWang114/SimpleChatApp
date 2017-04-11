@@ -8,8 +8,9 @@
   },
   "author": "Oscar Wang",
   "license": "ISC",
-  "dependencies":{
-    "socket.io":"*",
-    "express":"*"
+  "dependencies": {
+    "express": "*",
+    "helmet": "^3.5.0",
+    "socket.io": "*"
   }
 }
