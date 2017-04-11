@@ -1,7 +1,11 @@
 var express = require('express')
-, fs = require('fs'), https = require('https');
+, fs = require('fs')
+, https = require('https')
+, helmet = require('helmet');
 
 var app = express();
+app.use(helmet());
+
 var sslPath = '/etc/letsencrypt/live/simplegooglemapchat.tk/';
 var options = {
 	key: fs.readFileSync(sslPath + 'privkey.pem'),
@@ -10,15 +14,6 @@ var options = {
 
 var server = https.createServer(options, app);
 
-//Original http.creatServer(function(req, res){});
-/*
-express() returns a function. That function takes the req and res connection
-argument that the http request event passes in.
-Express also adds numerous properties and methods to the function 
-(remember that JavaScript functions are also objects!), and those are 
-the Express API.
-*/
-
 var io = require('socket.io').listen(server);
 
 users = [];
@@ -26,14 +21,6 @@ connections =[];
 
 server.listen(8080);
 console.log('Server has started...');
-/*
-In many envirnonments (e.g. Heroku), and as a convention, you can set
-the environment variable PORT to tell your webs server what port to 
-listen to.
-
-process.env.PORT means: whatever is in the environment variable PORT, 
-or 3000 if there's nothing there.
-*/
 
 app.get('/',function(req, res){
 	res.sendFile(__dirname+'/index.html');
@@ -57,10 +44,8 @@ io.on('connect',function(socket){
 
 	//Send Message
 	socket.on('send message',function(data){
-		//responds to the send message event.
 		socket.emit('new message', {msg:data.msg});
 		socket.broadcast.emit('new message from others', {usr:socket.username, msg:data.msg});
-		//emits the new message event and sends an anonymous object.
 	});
 
 	//New User
@@ -75,20 +60,3 @@ io.on('connect',function(socket){
 		io.emit('get users', users);
 	}
 });
-
-
-/*
-We call the default namespace '/' and it's the one Socket.IO clients
-connect to by default, and the one the server listens to by default.
-The namespace is identified by io.sockets or simply io.
-
-Each namespace emits a connection event that receives each Socket
-instance as a parameter.
-
-The string 'connection' is the event name. You can use your 
-own event names
-
-array.splice(index, howMany, [element1][,...,elementN]);
-You can add new elements while removing old elements.
-https://www.tutorialspoint.com/javascript/array_splice.htm
-*/ 

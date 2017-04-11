@@ -13,12 +13,15 @@ $(function(){
 	var $users = $('#users');
 	var $username = $('#username');
 	var $nameError = $('#nameError');
+	var $chatModal = $('#chatModal');
+	var $usernameList = $('#usernameList');
+	var $numberOfUsers = $('.numberOfUsers');
 
 	function modalScrollToBottom(){
 		$('.modal').animate({ scrollTop: $(document).height() }, "slow");
 	}
 	
-	$('#chatModal').on('shown.bs.modal', function(e){
+	$chatModal.on('shown.bs.modal', function(e){
 		modalScrollToBottom();
 	});
 
@@ -45,18 +48,13 @@ $(function(){
 	
 	$messageForm.submit(function(e){
 		e.preventDefault();
-		//prevent the default action of submitting the form
 		socket.emit('send message', {msg:$message.val()});
-		//emits the send message event and passing the value of message 
 		$message.val('');
-		//clear the message
 	});
 
 	socket.on('new message', function(data){
-		//responds the the new message event
 		if(data.msg!=''){
 			$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>')
-			//the oject is passed into the data parameter. Thus by accessing its msg property we'll be able to retreive the message.
 			modalScrollToBottom();
 		}
 	});
@@ -71,10 +69,10 @@ $(function(){
 	socket.on('get users', function(data){
 		var html ='';
 		for(i =0;i<data.length;i++){
-			html += '<li>·'+data[i]+'</li>'
+			html += '<li class="list-group-item">·'+data[i]+'</li>'
 		}
-		$users.html(html);
-		$('#numberOfUsers').html(data.length);
+		$usernameList.html(html);
+		$numberOfUsers.html(data.length);
 	})
 
 });

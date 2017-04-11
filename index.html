@@ -35,44 +35,63 @@
 				</div>
 				<div class="menu-col col-xs-4  text-center">
 					<button type ="button" class="btn-lg btn-block btn-info">
-					Online</br>Users: <var id="numberOfUsers"></var>
+					Online</br>Users: <var id="numberOfUsers" style="font-style: normal;"></var>
 					</button>
 				</div>
 				<div class="menu-col col-xs-4 text-center">
-					<button type ="button" class="btn-lg btn-block btn-success pull-right" data-toggle="modal" data-target="#chatModal">
+					<button type ="button" class="btn-lg btn-block btn-success" data-toggle="modal" data-target="#chatModal">
 					Chat</br>Room
 					</button>
 				</div>
 			</div>
 		</div>
 		<div class="container">		
-					<div class="modal fade" id="chatModal">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h2 class="modal-title">Chat Room</h2>
-								</div>
-								<div id="chat" class="modal-body">
-									<div class="well-sm sentMessage pull-right" >Hello World!</div>
-								</div>
-								<div class="modal-footer">
-									<form id="messageForm">
-										<div class="col-xs-9">
-											<div class="form-group">
-												<textarea class="form-control" id="message" placeholder="Enter Message:" rows=1></textarea>
-											</div>
-				   		 				</div>
-										<div class="col-xs-3">
-											<input type="submit" class="btn btn-primary pull-right" value="Send"/>
-										</div>
-										<button class="close" data-dismiss="modal" style="padding-top: 10px">&times;</button>
-									</form>
-								</div>
-							</div>
+			<div class="modal fade" id="onlineUsersModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title">Online Users: 			<var class="numberOfUsers"></var>
+							</h2>
+						</div>
+						<div id="onlineUsers" class="modal-body">
+							<ul id="usernameList" class="list-group">
+							</ul>
+						</div>
+						<div class="modal-footer">				
+							<button class="close" data-dismiss="modal" style="padding-top: 10px">&times;
+							</button>
 						</div>
 					</div>
 				</div>
-
+			</div>
+		</div>
+		<div class="container">		
+			<div class="modal fade" id="chatModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 class="modal-title">Chat Room</h2>
+						</div>
+						<div id="chat" class="modal-body">
+							<div class="well-sm sentMessage pull-right" >Hello World!</div>
+						</div>
+						<div class="modal-footer">
+							<form id="messageForm">
+								<div class="col-xs-9">
+									<div class="form-group">
+										<textarea class="form-control" id="message" placeholder="Enter Message:" rows=1></textarea>
+									</div>
+		   		 				</div>
+								<div class="col-xs-3">
+									<input type="submit" class="btn btn-primary pull-right" value="Send"/>
+								</div>
+								<button class="close" data-dismiss="modal" style="padding-top: 10px">&times;</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id ="map"></div>
     	<script type="text/javascript" src="js/googlemap.js"></script>
     	<script async defer
