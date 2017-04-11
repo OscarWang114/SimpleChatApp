@@ -17,6 +17,16 @@ $(function(){
 	var $usernameList = $('#usernameList');
 	var $numberOfUsers = $('.numberOfUsers');
 
+	function check(data){
+		var reg =/<(.|\n)*?>/g; 
+		if (reg.test(data) == true) {
+    		var ErrorText ='Do not allow HTML TAGS';
+    		alert(ErrorText);
+    		return false;
+    	}
+    	return true;
+	}
+
 	function modalScrollToBottom(){
 		$('.modal').animate({ scrollTop: $(document).height() }, "slow");
 	}
@@ -27,13 +37,7 @@ $(function(){
 
 	$userForm.submit(function(e){
 		e.preventDefault();
-		if($username.val()==''){
-			if("undefined" === typeof $nameError.html()){
-				var html='<p id="nameError">Please Enter a Proper User Name.</p>';
-				$userForm.append(html);		
-				$nameError = $('#nameError');				
-			}
-		}else {
+		if($username.val()!=''&&check($username.val())){
 			socket.emit('new user', $username.val(), function(data){
 				if(data){
 					$userFormArea.hide();
@@ -43,6 +47,12 @@ $(function(){
 				}
 			});
 			$username.val('');
+		}else {
+			if("undefined" === typeof $nameError.html()){
+				var html='<p id="nameError">Please Enter a Proper User Name.</p>';
+				$userForm.append(html);		
+				$nameError = $('#nameError');				
+			}
 		}
 	});
 	
@@ -53,8 +63,10 @@ $(function(){
 	});
 
 	socket.on('new message', function(data){
-		if(data.msg!=''){
-			$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>')
+		if(data.msg!=''&&check(data.msg)){
+			$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>');
+       		totalMessage = totalMessage+"<br />"+data.msg;
+        	addMessage(totalMessage);
 			modalScrollToBottom();
 		}
 	});

@@ -50,11 +50,3 @@ function updateMyMap(){
     google.maps.event.trigger(map, 'resize');
     map.setCenter(mapPos);
 }
-
-
-socket.on('new message', function(data){
-    if(data.msg!=''){
-        totalMessage = totalMessage+"<br />"+data.msg;
-        addMessage(totalMessage);
-    }
-});

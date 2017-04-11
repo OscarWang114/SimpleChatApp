@@ -2,6 +2,7 @@ var express = require('express')
 , fs = require('fs')
 , https = require('https')
 , helmet = require('helmet');
+const path = require('path');
 
 var app = express();
 app.use(helmet());
@@ -22,11 +23,13 @@ connections =[];
 server.listen(8080);
 console.log('Server has started...');
 
+app.use(express.static(path.join(__dirname, '/public')));
+
 app.get('/',function(req, res){
-	res.sendFile(__dirname+'/index.html');
+	res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.use(express.static(__dirname+'/public'));
+app.get('/^\/&/')
 
 io.on('connect',function(socket){
 	connections.push(socket);
