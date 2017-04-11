@@ -37,6 +37,7 @@ $(function(){
 
 	$userForm.submit(function(e){
 		e.preventDefault();
+		$username = $username.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 		if($username.val()!=''&&check($username.val())){
 			socket.emit('new user', $username.val(), function(data){
 				if(data){
@@ -58,6 +59,7 @@ $(function(){
 	
 	$messageForm.submit(function(e){
 		e.preventDefault();
+		$message = $message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 		if(check($message.val())){
 			socket.emit('send message', {msg:$message.val()});
 			$message.val('');
