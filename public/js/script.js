@@ -58,12 +58,14 @@ $(function(){
 	
 	$messageForm.submit(function(e){
 		e.preventDefault();
-		socket.emit('send message', {msg:$message.val()});
-		$message.val('');
+		if(check($message.val())){
+			socket.emit('send message', {msg:$message.val()});
+			$message.val('');
+		}
 	});
 
 	socket.on('new message', function(data){
-		if(data.msg!=''&&check(data.msg)){
+		if(data.msg!=''){
 			$chat.append('<div class="clearfix"></div><div class="sentMessage well-sm pull-right">'+data.msg+'</div>');
        		totalMessage = totalMessage+"<br />"+data.msg;
         	addMessage(totalMessage);
