@@ -6,16 +6,17 @@ $(function(){
 	var $messageForm = $('#messageForm');
 	var $message = $('#message');
 	var $chat = $('#chat');
-	var $messageArea = $('#messageArea');
+	var $menuArea = $('#menuArea');
 	var $userFormArea = $('#userFormArea');
 	var $userForm = $('#userForm');
 	var $mapArea = $('#map');
-	var $users = $('#users');
 	var $username = $('#username');
 	var $nameError = $('#nameError');
-	var $chatModal = $('#chatModal');
-	var $usernameList = $('#usernameList');
 	var $numberOfUsers = $('.numberOfUsers');
+    var $usernameList = $('#usernameList');
+	var $modal = $('.modal');
+	var $chatModal = $('#chatModal');
+	var $myLocationButton = $('#myLocationButton');
 
 	function check(data){
 		var reg =/<(.|\n)*?>/g; 
@@ -28,11 +29,15 @@ $(function(){
 	}
 
 	function modalScrollToBottom(){
-		$('.modal').animate({ scrollTop: $(document).height() }, "slow");
+		$modal.animate({ scrollTop: $(document).height() }, "slow");
 	}
 	
 	$chatModal.on('shown.bs.modal', function(e){
 		modalScrollToBottom();
+	});
+
+	$myLocationButton.click(function(){
+		updateMyMap();
 	});
 
 	$userForm.submit(function(e){
@@ -43,7 +48,7 @@ $(function(){
 			socket.emit('new user', usernameValue, function(data){
 				if(data){
 					$userFormArea.hide();
-					$messageArea.show();
+					$menuArea.show();
 					$mapArea.show();
 					updateMyMap();
 				}

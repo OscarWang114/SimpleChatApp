@@ -12,7 +12,7 @@ body{
 #userFormArea{
     margin-top:120px;
 }
-#messageArea{
+#menuArea{
     display:none
 }
 .messageForm, .form-control, .btn{
