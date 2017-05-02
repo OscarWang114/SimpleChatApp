@@ -4,23 +4,27 @@ var express = require('express')
 , helmet = require('helmet');
 const path = require('path');
 
-var app = express();
-app.use(helmet());
+var http = require('http');
 
+var app = express();
+//app.use(helmet());
+/*
 var sslPath = '/etc/letsencrypt/live/simplegooglemapchat.tk/';
 var options = {
 	key: fs.readFileSync(sslPath + 'privkey.pem'),
 	cert: fs.readFileSync(sslPath + 'fullchain.pem')
 };
-
-var server = https.createServer(options, app);
+*/
+//var server = https.createServer(options, app);
+var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
 
 users = [];
 connections =[];
 
-server.listen(8080);
+//server.listen(8000);
+server.listen( process.env.PORT || 3000);
 console.log('Server has started...');
 
 app.use(express.static(path.join(__dirname, '/public')));
@@ -29,7 +33,7 @@ app.get('/',function(req, res){
 	res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get('/^\/&/')
+//app.get('/^\/&/')
 
 io.on('connect',function(socket){
 	connections.push(socket);
