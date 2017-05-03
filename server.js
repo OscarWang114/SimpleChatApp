@@ -1,7 +1,7 @@
 const express = require('express')
 , fs = require('fs')
 , https = require('https')
-, helmet = require('helmet');
+, helmet = require('helmet')
 , path = require('path');
 
 var http = require('http');
