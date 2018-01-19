@@ -9,22 +9,24 @@ var http = require('http');
 var app = express();
 app.use(helmet());
 
-var sslPath = '/etc/letsencrypt/live/simplemapchat.tk/';
-var options = {
-	key: fs.readFileSync(sslPath + 'privkey.pem'),
-	cert: fs.readFileSync(sslPath + 'fullchain.pem')
-};
+if(process.env.NODE_ENV === 'production') {
+	var sslPath = '/etc/letsencrypt/live/simplemapchat.tk/';
+	var options = {
+		key: fs.readFileSync(sslPath + 'privkey.pem'),
+		cert: fs.readFileSync(sslPath + 'fullchain.pem')
+	};
 
-var server = https.createServer(options, app);
-//var server = http.createServer(app);
+	var server = https.createServer(options, app);
+} else {
+	var server = http.createServer(app);
+}
 
 var io = require('socket.io').listen(server);
 
 users = [];
 connections =[];
 
-server.listen(8000);
-//server.listen( process.env.PORT || 3000);
+server.listen( process.env.PORT || 3000);
 console.log('Server has started...');
 
 app.use(express.static(path.join(__dirname, '/public')));
@@ -38,7 +40,7 @@ app.get('/^\/&/')
 io.on('connect',function(socket){
 	connections.push(socket);
 	console.log('Connected: %d sockets connected.', connections.length);
-	
+
 	//Disconnect
 	socket.on('disconnect',function(data){
 		if("undefined" !== typeof socket.username){
